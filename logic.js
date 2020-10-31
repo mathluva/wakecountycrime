@@ -1,5 +1,5 @@
 var crimedata = data;
-
+    var index = [];
     var age = [];
     var sex = [];
     var date=[];
@@ -14,6 +14,7 @@ var crimedata = data;
 
 // for (var i =0; i<crimedata.length; i++){ 
  crimedata.forEach((crime) => {
+    index.push(crime.index);
     age.push(crime.Age);
     sex.push(crime.Sex);
     date.push(crime.arrest_date);
@@ -47,8 +48,16 @@ var bubble =[
     }
     }];
 
+var scatterpl = [
+  {
+    x: date,
+    y: index, 
+    mode:'markers+text',
+    text: dept
+  }
+  ];
+
 Plotly.newPlot('histogram', histogram);
 Plotly.newPlot('bar', bar);
 Plotly.newPlot('bubble', bubble);
-
-  
+Plotly.newPlot('scatterpl', scatterpl);

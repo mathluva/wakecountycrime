@@ -1,58 +1,230 @@
+
+  
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="utf-8">
-  <title>Tiffany</title>
+  <title>Project 2: Earthquakes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="static/css/style.css"> -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/anime.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
-<h1>Tiffany Teasley</h1>
-div class="container">
-    <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>Belly Button Biodiversity Dashboard</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
+  
+  <!-- <style>
+    div {
+      background-color: #c6e8eb;
+    }
+    </style> -->
+    
+    
+  <!-- Create Home Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #50327c;">
+    <div class="container-fluid">
+      <a class="navbar-brand" class="whitefont" href="index.html">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Create dropdown Graphs Navbar -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Graphs</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="heatmap.html">Magnitude Heatmap</a>
+              <a class="dropdown-item" href="scatter.html">Earthquake Count by Year</a>
+              <a class="dropdown-item" href="histogram.html">Magnitude Frequency</a>
+              <a class="dropdown-item" href="stacked.html">Magnitudes by Year & Class</a>
+            </div>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">Project Dashboard</a>
+          </li>
+        </ul>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-2">
-        <div class="well">
-          <h5>Test Subject ID No.:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Demographic Info</h3>
+  </nav>
+<br>
+  <!-- Page Title -->
+  <div class="row wrapper">
+    
+<br>
+    <!-- Filter Search -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 card-deck mx-auto">
+          <div class="bg-info card">
+    
+            <div class="card-body">
+              <h4 class="card-text text-center"><strong>Number of Arrest</strong></h4>
+              <!-- <p class="text-center"><strong>The magnitude is a number that characterizes the relative size of an earthquake.</strong></p> -->
+              <h2 id="maxmag" class="text-center card-title"></h2>
+            </div>
           </div>
-          <div id="sample-metadata" class="panel-body"></div>
+          <div class="bg-info card">
+    
+            <div class="card-body">
+              <h4 class="card-text text-center"><strong>Safety Score</stros ng></h4>
+              <!-- <p class="text-center"><strong> The depth of focus or focal depth refers to how deep within the earth an earthquake occurs.</strong></p> -->
+              <h2 id="depth" class="text-center card-title"></h2>
+    
+    
+            </div>
+          </div>
+          <div class=" bg-info card">
+            <div class="card-body">
+              <h4 class="text-center card-text"><strong>Number of Major Crimes</strong></h4>
+              <!-- <p class="text-center"><strong>The earthquake count goes back as far 1600; however, it was noted that data was limited prior to 1900.</strong></p> -->
+              <h2 id="earthcount" class="text-center card-title"></h2>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-5">
-        <div id="histogram"></div>
-      </div>
-      <div class="col-md-5">
-        <div id="bubble"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="bar"></div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+
+          <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Location
+            <select id="country" type="text">
+              <option class="small" value="Select All">Select All</option>
+            </select>
+          </button>
+          <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Year
+            <select id="datetime" type="text">
+              <option value="Select All">Select All</option>
+            </select>
+          </button>
+
+          <!-- <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Year Range
+            <select id="yearmin" type="text">
+              <option value="Select All">Select All</option>
+            </select>
+            <select id="yearmax" type="text">
+              <option value="Select All">Select All</option>
+            </select>
+          </button> -->
+
+          <!-- <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Month
+            <select id="month" type="text">
+              <option value="Select All">Select All</option>
+            </select>
+          </button> -->
+
+          <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Agency
+            <select id="magnitude">
+              <option value="Select All">Select All</option>
+              <option value="minor">Minor (3-3.9)</option>
+              <option value="light">Light (4-4.9)</option>
+              <option value="moderate">Moderate (5-5.9)</option>
+              <option value="strong">Strong (6-6.9)</option>
+              <option value="major">Major (7-7.9)</option>
+              <option value="great">Great (8 or more)</option>
+            </select>
+          </button>
+
+          <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Charges
+            <select id="death">
+              <option value="Select All">Select All</option>
+              <option value="yes">Yes</option>
+            </select>
+          </button>
+        </div>
+        <button id="filter-btn" type="button" class="btn-default">Filter Data</button>
+        
+        <button id="filter-btn-clear" type="reset" class="btn-default">Clear Filters</button>
+        </form>
       </div>
     </div>
   </div>
+  <!-- Heatmap Section -->
+  <!-- <div class="row">
+    <div id="heatmap" class="col-md-10 mx-auto">
+    </div>
+  </div> -->
+  <br>
 
+  <!-- Filtered Data Summary Section (Cards) -->
+  <!-- <div class="row">
+    <div class="col-md-10 card-deck mx-auto">
+      <div class="bg-info card">
+
+        <div class="card-body">
+          <h4 class="card-text text-center"><strong>Maximum Magnitude</strong></h4>
+          <p class="text-center"><strong>The magnitude is a number that characterizes the relative size of an earthquake.</strong></p>
+          <h2 id="maxmag" class="text-center card-title"></h2>
+        </div>
+      </div>
+      <div class="bg-info card">
+
+        <div class="card-body">
+          <h4 class="card-text text-center"><strong>Average Depth of Focus (km)</strong></h4>
+          <p class="text-center"><strong> The depth of focus or focal depth refers to how deep within the earth an earthquake occurs.</strong></p>
+          <h2 id="depth" class="text-center card-title"></h2>
+
+
+        </div>
+      </div>
+      <div class=" bg-info card">
+        <div class="card-body">
+          <h4 class="text-center card-text"><strong>Earthquake Count</strong></h4>
+          <p class="text-center"><strong>The earthquake count goes back as far 1600; however, it was noted that data was limited prior to 1900.</strong></p>
+          <h2 id="earthcount" class="text-center card-title"></h2>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Scatter and Histogram -->
+  <div class="row">
+    <div id="bubble"></div>
+  </div>
+  <div class="row">
+    <div id="bar" class="col-md-5 mx-auto"></div>
+    <div id="histogram" class="col-md-5 mx-auto"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-11 mx-auto">
+      <div id="scatterpl"></div>
+    </div>
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script> -->
+  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
- <!-- <script type="text/javascript" src="file1.json"></script> -->
- <script type="text/javascript" src="crime.js"></script>
- <script src="logic.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+  <script type="text/javascript" src="crime.js"></script>
+  <script src="logic.js"></script>
+  
 </body>
 
 </html>
 
+
+    
 

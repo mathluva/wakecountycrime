@@ -38,7 +38,7 @@
     "Charge": "RESISTING PUBLIC OFFICER",
  },
  {
-    "index": 0,
+    "index": 3,
     "Name": "VINSON,BRAXTON MCCRAY",
     "Age": 27,
     "Sex": "F",
@@ -51,7 +51,7 @@
     "Charge": "FAIL REPRT NEW ADDRESS-SEX OFF (CABARRUS CO)"
 },
 {
-    "index": 1,
+    "index": 4,
     "Name": "LORFILS,GILBERT TRAVIS",
     "Age": 32,
     "Sex": "M",
@@ -64,7 +64,7 @@
     "Charge": "FELONY POSSESSION OF COCAINE"
 },
  {
-    "index": 2,
+    "index": 5,
     "Name": "LORFILS,GILBERT TRAVIS",
     "Age": 32,
     "Sex": "M",
